@@ -1,13 +1,4 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
-mongoose.connect(
-  "mongodb+srv://aeternam:master.ae13@eurusd.yhq8o.mongodb.net/EURUSD?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-); //Si no existe, se crea
+const {Schema, model} = require("mongoose");
 
 const EURUSDHour = new Schema(
   {
@@ -34,4 +25,4 @@ const EURUSDHour = new Schema(
   { versionKey: false }
 );
 
-module.exports = mongoose.model("EURUSDHour", EURUSDHour, "EURUSDHour");
+module.exports = model("EURUSDHour", EURUSDHour, "EURUSDHour");

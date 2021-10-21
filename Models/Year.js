@@ -1,13 +1,4 @@
-const mongoose = require("mongoose");
-const Schema = mongoose.Schema;
-
-mongoose.connect(
-  "mongodb+srv://aeternam:master.ae13@eurusd.yhq8o.mongodb.net/EURUSD?retryWrites=true&w=majority",
-  {
-    useNewUrlParser: true,
-    useUnifiedTopology: true,
-  }
-); //Si no existe, se crea
+const {Schema, model} = require("mongoose");
 
 const EURUSDYear = new Schema(
   {
@@ -34,4 +25,4 @@ const EURUSDYear = new Schema(
   { versionKey: false }
 );
 
-module.exports = mongoose.model("EURUSDYear", EURUSDYear, "EURUSDYear");
+module.exports = model("EURUSDYear", EURUSDYear, "EURUSDYear");
