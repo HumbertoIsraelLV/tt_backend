@@ -1,7 +1,10 @@
 const express = require("express");
 const cors = require("cors");
 require ('dotenv').config();
-const {dbConnection}=require('./database/config')
+
+const {dbConnection}=require('./database/config');
+const getRoutes = require("./Routes/Routes");
+const updateDB = require("./utils/updater");
 
 class Server{
     constructor(){
@@ -16,13 +19,13 @@ class Server{
             year:   '/Year', 
         };
 
-        //Conectar a base de datos
+        //CONECTAR A BASE DE DATOS
         this.conectarDB();
 
-        //Middlewares
+        //MIDDLEWARES
         this.middlewares();
         
-        //Rutas de la app
+        //RUTAS DE LA APP
         this.routes();
     }
     async conectarDB(){
@@ -39,11 +42,11 @@ class Server{
         this.app.use(express.static('public'));
     }
     routes(){
-        this.app.use(this.paths.day, require('./Routes/Day.js'));
-        this.app.use(this.paths.hour, require('./Routes/Hour.js'));
-        this.app.use(this.paths.month, require('./Routes/Month.js'));
-        this.app.use(this.paths.week, require('./Routes/Week.js'));
-        this.app.use(this.paths.year, require('./Routes/Year.js'));
+        this.app.use(this.paths.day, getRoutes("EURUSDDay"));
+        this.app.use(this.paths.hour, getRoutes("EURUSDHour"));
+        this.app.use(this.paths.month, getRoutes("EURUSDMonth"));
+        this.app.use(this.paths.week, getRoutes("EURUSDWeek"));
+        this.app.use(this.paths.year, getRoutes("EURUSDYear"));
     }
     listen(){
         this.app.listen(this.port, ()=>{
@@ -52,4 +55,5 @@ class Server{
     }
 }
 const server = new Server();
+updateDB(30000);
 server.listen();
