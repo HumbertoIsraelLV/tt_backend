@@ -7,20 +7,21 @@ const createModel = (collection_name)=>{
       {
         _id: {
           type: Date,
+          required: true,
         },
-        High: {
+        high: {
           type: Number,
           required: true,
         },
-        Low: {
+        low: {
           type: Number,
           required: true,
         },
-        Close: {
+        close: {
           type: Number,
           required: true,
         },
-        Open: {
+        open: {
           type: Number,
           required: true,
         },

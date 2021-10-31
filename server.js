@@ -12,11 +12,11 @@ class Server{
         this.port=process.env.PORT;
 
         this.paths = {
-            day:    '/Day', 
-            hour:   '/Hour', 
-            month:  '/Month', 
-            week:   '/Week', 
-            year:   '/Year', 
+            day:    `/${process.env.DAY}`, 
+            hour:   `/${process.env.HOUR}`, 
+            month:  `/${process.env.MONTH}`, 
+            week:   `/${process.env.WEEK}`, 
+            year:   `/${process.env.YEAR}`, 
         };
 
         //CONECTAR A BASE DE DATOS
@@ -42,11 +42,11 @@ class Server{
         this.app.use(express.static('public'));
     }
     routes(){
-        this.app.use(this.paths.day, getRoutes("EURUSDDay"));
-        this.app.use(this.paths.hour, getRoutes("EURUSDHour"));
-        this.app.use(this.paths.month, getRoutes("EURUSDMonth"));
-        this.app.use(this.paths.week, getRoutes("EURUSDWeek"));
-        this.app.use(this.paths.year, getRoutes("EURUSDYear"));
+        this.app.use(this.paths.day, getRoutes(process.env.DAY));
+        this.app.use(this.paths.hour, getRoutes(process.env.HOUR));
+        this.app.use(this.paths.month, getRoutes(process.env.MONTH));
+        this.app.use(this.paths.week, getRoutes(process.env.WEEK));
+        this.app.use(this.paths.year, getRoutes(process.env.YEAR));
     }
     listen(){
         this.app.listen(this.port, ()=>{
@@ -55,5 +55,5 @@ class Server{
     }
 }
 const server = new Server();
-updateDB(30000);
+// updateDB();
 server.listen();
