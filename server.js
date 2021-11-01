@@ -16,7 +16,6 @@ class Server{
             hour:   `/${process.env.HOUR}`, 
             month:  `/${process.env.MONTH}`, 
             week:   `/${process.env.WEEK}`, 
-            year:   `/${process.env.YEAR}`, 
         };
 
         //CONECTAR A BASE DE DATOS
@@ -46,7 +45,6 @@ class Server{
         this.app.use(this.paths.hour, getRoutes(process.env.HOUR));
         this.app.use(this.paths.month, getRoutes(process.env.MONTH));
         this.app.use(this.paths.week, getRoutes(process.env.WEEK));
-        this.app.use(this.paths.year, getRoutes(process.env.YEAR));
     }
     listen(){
         this.app.listen(this.port, ()=>{
