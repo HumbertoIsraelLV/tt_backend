@@ -21,6 +21,18 @@ const getRoutes = (collection_name) =>
       }
     });
     
+    //GET THE LATEST INFO
+    router.get("/Last", async (req, res) => {
+      var {count} = req.body;
+      count = count? count : 1; 
+      try {
+        const result = await Model.find().sort({_id: -1}).limit(count);
+        res.json(result);
+      } catch (err) { 
+        res.status(500).json({ message: err.message });
+      }
+    });
+    
     //ML ROUTES
     router.get("/ML", async (req, res) => {
       var {forecast_or_train, start_date, end_date} = req.body;
