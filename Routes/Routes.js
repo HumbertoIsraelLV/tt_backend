@@ -10,7 +10,7 @@ const getRoutes = (collection_name) =>
     
     //GET ALL THE DOCUMENTS WITHIN A DELIMITED DATE RANGE
     router.get("/Range", async (req, res) => {
-      var {start_date, end_date} = req.body;
+      var {start_date, end_date} = req.query;
       start_date = start_date? start_date : "2000-01-01T00:00:00.000Z"; 
       end_date = end_date? end_date : "2022-01-01T00:00:00.000Z"; 
       try {
@@ -23,8 +23,8 @@ const getRoutes = (collection_name) =>
     
     //GET THE LATEST INFO
     router.get("/Last", async (req, res) => {
-      var {count} = req.body;
-      count = count? count : 1; 
+      var {count} = req.query;
+      count = count? Number(count) : 1; 
       try {
         const result = await Model.find().sort({_id: -1}).limit(count);
         res.json(result);
@@ -35,7 +35,7 @@ const getRoutes = (collection_name) =>
     
     //ML ROUTES
     router.get("/ML", async (req, res) => {
-      var {forecast_or_train, start_date, end_date} = req.body;
+      var {forecast_or_train, start_date, end_date} = req.query;
       const data = {
           collection_name,
           forecast_or_train: forecast_or_train? forecast_or_train : "forecast",
