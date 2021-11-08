@@ -27,7 +27,10 @@ const getRoutes = (collection_name) =>
       count = count? Number(count) : 1; 
       try {
         const result = await Model.find().sort({_id: -1}).limit(count);
-        res.json(result);
+        if(count==1)
+          res.json(result[0]);
+        else
+          res.json(result);
       } catch (err) { 
         res.status(500).json({ message: err.message });
       }
