@@ -63,6 +63,7 @@ const updater = async (collection_name, config) => {
         axios.request(options).then(async(response) => {
             elements=Object.getOwnPropertyNames(response.data);
             candles=response.data[elements[1]];
+            delete candles[Object.keys(candles)[0]];
             items_list=[];
             Object.getOwnPropertyNames(candles).forEach(key => {
                 item={};
