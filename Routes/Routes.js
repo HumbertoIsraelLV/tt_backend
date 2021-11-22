@@ -46,7 +46,7 @@ const getRoutes = (collection_name) =>
           end_date: end_date? end_date : "2022-01-01T00:00:00.000Z"
       }
       try {
-        const result = await axios.post(process.env.PYTHON_URL, data);
+        const result = await axios.post(process.env.PYTHON_URL, data, {timeout: 180000});
         res.json(result.data);
       } catch (err) { 
         res.status(500).json({ message: err.message });
