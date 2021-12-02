@@ -20,6 +20,20 @@ const getRoutes = (collection_name) =>
         res.status(500).json({ message: err.message });
       }
     });
+
+    //GET THE TWO DOCUMENTS THAT GATHER A DELIMITED DATE RANGE
+    router.get("/Backtesting", async (req, res) => {
+      var {start_date, end_date} = req.query;
+      start_date = start_date? start_date : "2000-01-01T00:00:00.000Z"; 
+      end_date = end_date? end_date : "2022-01-01T00:00:00.000Z"; 
+      try {
+        const [start] = await Model.find({'_id': {'$gte':start_date, '$lte':end_date}}).sort({_id: 1}).limit(1);
+        const [end] = await Model.find({'_id': {'$gte':start_date, '$lte':end_date}}).sort({_id: -1}).limit(1);
+        res.json({start, end});
+      } catch (err) { 
+        res.status(500).json({ message: err.message });
+      }
+    });
     
     //GET THE LATEST INFO
     router.get("/Last", async (req, res) => {
@@ -46,7 +60,7 @@ const getRoutes = (collection_name) =>
           end_date: end_date? end_date : "2022-01-01T00:00:00.000Z"
       }
       try {
-        const result = await axios.post(process.env.PYTHON_URL, data, {timeout: 180000});
+        const result = await axios.post(process.env.PYTHON_URL, data);
         res.json(result.data);
       } catch (err) { 
         res.status(500).json({ message: err.message });
