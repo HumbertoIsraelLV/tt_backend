@@ -102,18 +102,22 @@ const updateDB = async () => {
         "Day": {
             options:    day_options,
             delay:      5000000  //each day
+            // delay:      5000  //fast
         },
         "Hour": {
             options:    hour_options,
             delay:      3600000  //each hour
+            // delay:      5000
         },
         "Month": {
             options:    month_options,
-            delay:      2419200000  //each month
+            delay:      604800000  //each month
+            // delay:      5000
         },
         "Week": {
             options:    week_options,
             delay:      604800000  //each week
+            // delay:      5000
         },
     };
     Object.getOwnPropertyNames(collection_options).forEach(collection => {

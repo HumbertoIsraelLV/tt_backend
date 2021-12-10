@@ -53,5 +53,5 @@ class Server{
     }
 }
 const server = new Server();
-// updateDB();
+updateDB();
 server.listen();
